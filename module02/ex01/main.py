@@ -1,35 +1,72 @@
-def what_are_the_vars(*args, **kwargs):
+"""
+Variable arguments to object converter module.
+"""
+
+from typing import Any, Dict, Optional
+
+
+class ObjectC:
     """
-    ...
+    A class that dynamically sets attributes from a dictionary.
     """
 
-    arguments = {}
-    for i, x in enumerate(args):
-        arguments[f'var_{i}'] = x
-    for x, y in kwargs.items():
-        if x in arguments:
+    def __init__(self, arguments: Dict[str, Any]) -> None:
+        """
+        Initialize ObjectC with arbitrary attributes.
+
+        Args:
+            arguments: Dictionary of attribute names and values.
+        """
+        for name, value in arguments.items():
+            setattr(self, name, value)
+
+
+def what_are_the_vars(*args: Any, **kwargs: Any) -> Optional[ObjectC]:
+    """
+    Convert positional and keyword arguments into an object with those attributes.
+
+    Args:
+        *args: Positional arguments converted to var_0, var_1, etc.
+        **kwargs: Keyword arguments as named attributes.
+
+    Returns:
+        ObjectC with the arguments as attributes, or None if conflicts exist.
+    """
+    arguments: Dict[str, Any] = {}
+
+    # Add positional arguments
+    for i, arg in enumerate(args):
+        arguments[f'var_{i}'] = arg
+
+    # Add keyword arguments
+    for key, value in kwargs.items():
+        # Conflict: keyword arg has same name as positional var
+        if key in arguments:
             return None
-        arguments[x] = y
-    return ObjectC(arguments)
-    
-class ObjectC(object):
-    def __init__(self, arguments):
-        for x, y in arguments.items():
-            setattr(self, x, y)
+        arguments[key] = value
 
-    
-def doom_printer(obj):
+    return ObjectC(arguments)
+
+
+def doom_printer(obj: Optional[ObjectC]) -> None:
+    """
+    Print all non-private attributes of an object.
+
+    Args:
+        obj: Object to print, or None.
+    """
     if obj is None:
         print("ERROR")
         print("end")
         return
+
     for attr in dir(obj):
-        if attr[0] != '_':
+        if not attr.startswith('_'):
             value = getattr(obj, attr)
-            print("{}: {}".format(attr, value))
+            print(f"{attr}: {value}")
     print("end")
-    
-    
+
+
 if __name__ == "__main__":
     obj = what_are_the_vars(7)
     doom_printer(obj)
@@ -45,27 +82,3 @@ if __name__ == "__main__":
     doom_printer(obj)
     obj = what_are_the_vars(42, "Yes", a=10, var_2="world")
     doom_printer(obj)
-
-# python main.py
-# var_0: 7
-# end
-# var_0: None
-# var_1: []
-# end
-# var_0: ft_lol
-# var_1: Hi
-# end
-# end
-# a: 10
-# hello: world
-# var_0: 12
-# var_1: Yes
-# var_2: [0, 0, 0]
-# end
-# ERROR
-# end
-# a: 10
-# var_0: 12
-# var_1: Yes
-# var_2: world
-# end

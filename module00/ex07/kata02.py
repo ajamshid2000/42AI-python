@@ -1,8 +1,12 @@
-# Put this at the top of your kata02.py file
+#!/usr/bin/env python3
+"""
+Format a tuple representing date and time into MM/DD/YYYY HH:MM format.
+
+Example output: 09/25/2019 03:30
+"""
+
 kata = (2019, 9, 25, 3, 30)
 
-print(f"{kata[1]:02}/{kata[2]:02}/{kata[0]:04} {kata[3]:02}:{kata[4]:02}")
-#  python3 kata02.py | cat -e
-# 09/25/2019 03:30$
-# $> python3 kata02.py | wc -c
-# 17
+if __name__ == "__main__":
+    year, month, day, hour, minute = kata
+    print(f"{month:02}/{day:02}/{year:04} {hour:02}:{minute:02}")

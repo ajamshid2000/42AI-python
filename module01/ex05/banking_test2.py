@@ -1,6 +1,12 @@
+"""
+Test script for bank account fixing and transfer functionality.
+"""
+
 from the_bank import Account, Bank
 
-if __name__ == "__main__":
+
+def main() -> None:
+    """Run fix and transfer test."""
     bank = Bank()
     bank.add(Account(
         'Smith Jane',
@@ -16,13 +22,16 @@ if __name__ == "__main__":
         info=None
     ))
 
-    if bank.transfer('William John', 'Smith Jane', 1000.0) is False:
-        print('Failed')
-
+    if not bank.transfer('William John', 'Smith Jane', 1000.0):
+        print('Failed - attempting to fix accounts')
         bank.fix_account('William John')
         bank.fix_account('Smith Jane')
 
-    if bank.transfer('William John', 'Smith Jane', 1000.0) is False:
-        print('Failed')
-    else:
+    if bank.transfer('William John', 'Smith Jane', 1000.0):
         print('Success')
+    else:
+        print('Failed')
+
+
+if __name__ == "__main__":
+    main()

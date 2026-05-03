@@ -1,6 +1,12 @@
+"""
+Test script for bank transfer functionality.
+"""
+
 from the_bank import Account, Bank
 
-if __name__ == "__main__":
+
+def main() -> None:
+    """Run transfer test."""
     bank = Bank()
     bank.add(Account(
         'Smith Jane',
@@ -17,7 +23,11 @@ if __name__ == "__main__":
         other='This is the vice president of the corporation'
     ))
 
-    if bank.transfer('William John', 'Smith Jane', 545.0) is False:
-        print('Failed')
-    else:
+    if bank.transfer('William John', 'Smith Jane', 545.0):
         print('Success')
+    else:
+        print('Failed')
+
+
+if __name__ == "__main__":
+    main()

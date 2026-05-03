@@ -1,15 +1,29 @@
 
-def ft_filter(function_to_apply, iterable):
-    """Filter the result of function apply to all elements of the iterable.
-    Args:
-    function_to_apply: a function taking an iterable.
-    iterable: an iterable object (list, tuple, iterator).
-    Return:
-    An iterable.
-    None if the iterable can not be used by the function.
+"""
+Custom filter function implementation.
+"""
+
+from typing import Callable, Iterable, Any, Generator
+
+
+def ft_filter(function_to_apply: Callable[[Any], bool], iterable: Iterable[Any]) -> Generator[Any, None, None]:
     """
-    for x in iterable:
-        if(function_to_apply(x) == True):
-            yield x
-        
-x = [1, 2, 3, 4, 5]
+    Filter elements of an iterable using a function.
+
+    Args:
+        function_to_apply: Function that returns True/False for each element.
+        iterable: An iterable object (list, tuple, etc.).
+
+    Yields:
+        Elements for which function_to_apply returns True.
+    """
+    for element in iterable:
+        if function_to_apply(element):
+            yield element
+
+
+if __name__ == "__main__":
+    x = [1, 2, 3, 4, 5]
+    # Example: filter even numbers
+    for num in ft_filter(lambda n: n % 2 == 0, x):
+        print(num)

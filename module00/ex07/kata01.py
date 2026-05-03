@@ -1,13 +1,19 @@
-# Put this at the top of your kata01.py file
+#!/usr/bin/env python3
+"""
+Print the creators of programming languages from a dictionary.
+
+Example output:
+Python was created by Guido van Rossum
+Ruby was created by Yukihiro Matsumoto
+PHP was created by Rasmus Lerdorf
+"""
+
 kata = {
-'Python': 'Guido van Rossum',
-'Ruby': 'Yukihiro Matsumoto',
-'PHP': 'Rasmus Lerdorf',
+    'Python': 'Guido van Rossum',
+    'Ruby': 'Yukihiro Matsumoto',
+    'PHP': 'Rasmus Lerdorf',
 }
 
-print(*(f"{x} was created by {y}" for x,y in kata.items()), sep = "\n")
-
-# python3 kata01.py
-# Python was created by Guido van Rossum
-# Ruby was created by Yukihiro Matsumoto
-# PHP was created by Rasmus Lerdor
+if __name__ == "__main__":
+    for language, creator in kata.items():
+        print(f"{language} was created by {creator}")

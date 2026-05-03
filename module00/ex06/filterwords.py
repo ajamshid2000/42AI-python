@@ -1,18 +1,61 @@
-# import re
+#!/usr/bin/env python3
+"""
+Filter words from a string that are longer than a specified length.
+
+Usage:
+    python filterwords.py "<sentence>" <length>
+
+Example:
+    python filterwords.py "Hello world from Python" 4
+    Output: ['Hello', 'world', 'Python']
+"""
+
 import sys
+from typing import List
 
-if(len(sys.argv) != 3 or not sys.argv[1].isprintable() or not sys.argv[2].isnumeric()):
-    print("ERROR")
-    exit()
 
-# s = ''.join(filter(str.isalnum, s))
-# s = ''.join([i for i in s if i.isalpha()])
-# regex = re.compile('[^a-zA-Z]')
-# a= regex.sub('', sys.argv[1])
-# list_of_words = [regex.sub('', x) for x in sys.argv[1].split()[:int(sys.argv[2])]]
+def filter_words(sentence: str, min_length: int) -> List[str]:
+    """
+    Filter words from a sentence that are longer than the specified minimum length.
+    Only alphabetic characters are considered in words.
 
-# i could use the mthods above too to do the same thing i have done below
-list_of_words = [w for w in (''.join([i for i in x if i.isalpha()]) for x in sys.argv[1].split()) if len(w) > int(sys.argv[2])]
-# if(len(list_of_words) < int(sys.argv[2])):
-#     list_of_words = []
-print(list_of_words)
+    Args:
+        sentence: The input sentence.
+        min_length: Minimum word length.
+
+    Returns:
+        List of filtered words.
+    """
+    words = sentence.split()
+    filtered = []
+    for word in words:
+        # Keep only alphabetic characters
+        clean_word = ''.join(c for c in word if c.isalpha())
+        if len(clean_word) > min_length:
+            filtered.append(clean_word)
+    return filtered
+
+
+def main() -> None:
+    """Main entry point of the script."""
+    if len(sys.argv) != 3:
+        print("ERROR")
+        sys.exit(1)
+
+    sentence = sys.argv[1]
+    try:
+        min_length = int(sys.argv[2])
+    except ValueError:
+        print("ERROR")
+        sys.exit(1)
+
+    if min_length < 0:
+        print("ERROR")
+        sys.exit(1)
+
+    result = filter_words(sentence, min_length)
+    print(result)
+
+
+if __name__ == "__main__":
+    main()

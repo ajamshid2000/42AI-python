@@ -1,10 +1,12 @@
-# Put this at the top of your kata03.py file
+#!/usr/bin/env python3
+"""
+Print a string padded with dashes to make it 42 characters long.
+
+Example output: --------------------------The right format
+"""
+
 kata = "The right format"
 
-print("-" * (42-len(kata)), kata, sep ="", end = "")
-
-
-#  python3 kata03.py | cat -e
-# --------------------------The right format%
-# $> python3 kata03.py | wc -c
-# 42
+if __name__ == "__main__":
+    padding = "-" * (42 - len(kata))
+    print(f"{padding}{kata}", end="")

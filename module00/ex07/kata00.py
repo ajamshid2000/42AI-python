@@ -1,8 +1,11 @@
-# Put this at the top of your kata00.py file
-kata = (19,42,21)
+#!/usr/bin/env python3
+"""
+Print the elements of a tuple in a formatted string.
 
-print("the 3 numbers are:", ", ".join(str(x) for x in kata))
+Example output: the 3 numbers are: 19, 42, 21
+"""
 
+kata = (19, 42, 21)
 
-#  python3 kata00.py
-# The 3 numbers are: 19, 42, 21
+if __name__ == "__main__":
+    print("the 3 numbers are:", ", ".join(str(x) for x in kata))

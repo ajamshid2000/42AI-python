@@ -1,18 +1,28 @@
 
-def ft_map(function_to_apply, iterable):
-    """Map the function to all elements of the iterable.
-    Args:
-    function_to_apply: a function taking an iterable.
-    iterable: an iterable object (list, tuple, iterator).
-    Return:
-    An iterable.
-    None if the iterable can not be used by the function.
-    """
-    for x in iterable:
-        yield function_to_apply(x)
+"""
+Custom map function implementation.
+"""
 
-x = [1, 2, 3, 4, 5]
-# ft_map(lambda dum: dum + 1, x)
-# Output:
-# <generator object ft_map at 0x7f708faab7b0> # The adress will be different
-# list(ft_map(lambda t: t + 1, x))
+from typing import Callable, Iterable, Any, Generator
+
+
+def ft_map(function_to_apply: Callable[[Any], Any], iterable: Iterable[Any]) -> Generator[Any, None, None]:
+    """
+    Apply a function to all elements of an iterable.
+
+    Args:
+        function_to_apply: Function to apply to each element.
+        iterable: An iterable object (list, tuple, etc.).
+
+    Yields:
+        Transformed elements.
+    """
+    for element in iterable:
+        yield function_to_apply(element)
+
+
+if __name__ == "__main__":
+    x = [1, 2, 3, 4, 5]
+    # Example: increment each number
+    print(list(ft_map(lambda t: t + 1, x)))
+    # Output: [2, 3, 4, 5, 6]
